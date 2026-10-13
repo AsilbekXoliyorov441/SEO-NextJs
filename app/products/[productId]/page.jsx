@@ -1,6 +1,24 @@
 
 import React from "react";
 
+
+export async function generateMetadata({ params, searchParams }, parent) {
+  const {productId} = await params;
+ 
+  // fetch post information
+  const post = await fetch(`https://api.escuelajs.co/api/v1/products/${productId}`).then((res) =>
+    res.json()
+  )
+
+  console.log(post);
+  
+ 
+  return {
+    title: post.title,
+    description: post.description,
+  }
+}
+
 async function getProduct(productId) {
   const res = await fetch(`https://api.escuelajs.co/api/v1/products/${productId}`)
   return res.json()
